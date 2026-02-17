@@ -2,6 +2,10 @@ import * as chai from '../index.js';
 
 describe('plugins', function () {
 
+  /**
+   *
+   * @param chai
+   */
   function plugin (chai) {
     if (chai.Assertion.prototype.testing) return;
 
@@ -14,7 +18,7 @@ describe('plugins', function () {
 
   it('basic usage', function () {
     chai.use(plugin);
-    var expect = chai.expect;
+    let expect = chai.expect;
     expect(expect('').testing).to.equal('successful');
   });
 
@@ -28,7 +32,7 @@ describe('plugins', function () {
     chai.use(function (chai) {
       chai.use(plugin);
     });
-    var expect = chai.expect;
+    let expect = chai.expect;
     expect(expect('').testing).to.equal('successful');
   });
 
@@ -40,12 +44,16 @@ describe('plugins', function () {
         }
       });
     }).use(plugin);
-    var expect = chai.expect;
+    let expect = chai.expect;
     expect(expect('').testing).to.equal('successful');
     expect(expect('').testing2).to.equal('bleep bloop');
   });
 
   it('.use detached from chai object', function () {
+    /**
+     *
+     * @param chai
+     */
     function anotherPlugin (chai) {
       Object.defineProperty(chai.Assertion.prototype, 'moreTesting', {
         get: function () {
@@ -54,10 +62,10 @@ describe('plugins', function () {
       });
     }
 
-    var use = chai.use;
+    let use = chai.use;
     use(anotherPlugin);
 
-    var expect = chai.expect;
+    let expect = chai.expect;
     expect(expect('').moreTesting).to.equal('more success');
   });
 });

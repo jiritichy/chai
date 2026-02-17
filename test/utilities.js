@@ -11,12 +11,12 @@ describe('utilities', function () {
   });
 
   it('_obj', function () {
-    var foo = 'bar'
+    let foo = 'bar'
       , test = expect(foo);
 
     expect(test).to.have.property('_obj', foo);
 
-    var bar = 'baz';
+    let bar = 'baz';
     test._obj = bar;
 
     expect(test).to.have.property('_obj', bar);
@@ -24,11 +24,11 @@ describe('utilities', function () {
   });
 
   it('transferFlags', function () {
-    var foo = 'bar'
+    let foo = 'bar'
       , test = expect(foo).not;
 
     chai.use(function (_chai, utils) {
-      var obj = {};
+      let obj = {};
       utils.transferFlags(test, obj);
       expect(utils.flag(obj, 'object')).to.equal(foo);
       expect(utils.flag(obj, 'negate')).to.equal(true);
@@ -36,17 +36,17 @@ describe('utilities', function () {
   });
 
   it('transferFlags, includeAll = false', function () {
-    var foo = 'bar';
+    let foo = 'bar';
 
     chai.use(function (_chai, utils) {
-      var target = {};
-      var test = function() {};
+      let target = {};
+      let test = function() {};
 
-      var assertion = new chai.Assertion(target, "message", test, true);
-      var flag = {};
+      let assertion = new chai.Assertion(target, "message", test, true);
+      let flag = {};
       utils.flag(assertion, 'flagMe', flag);
       utils.flag(assertion, 'negate', true);
-      var obj = {};
+      let obj = {};
       utils.transferFlags(assertion, obj, false);
 
       expect(utils.flag(obj, 'object')).to.equal(undefined);
@@ -59,17 +59,17 @@ describe('utilities', function () {
   });
 
   it('transferFlags, includeAll = true', function () {
-    var foo = 'bar';
+    let foo = 'bar';
 
     chai.use(function (_chai, utils) {
-      var target = {};
-      var test = function() {};
+      let target = {};
+      let test = function() {};
 
-      var assertion = new chai.Assertion(target, "message", test, true);
-      var flag = {};
+      let assertion = new chai.Assertion(target, "message", test, true);
+      let flag = {};
       utils.flag(assertion, 'flagMe', flag);
       utils.flag(assertion, 'negate', true);
-      var obj = {};
+      let obj = {};
       utils.transferFlags(assertion, obj, true);
 
       expect(utils.flag(obj, 'object')).to.equal(target);
@@ -82,7 +82,7 @@ describe('utilities', function () {
   });
 
   describe('addMethod', function() {
-    var assertionConstructor, utils;
+    let assertionConstructor, utils;
 
     before(function() {
       chai.use(function(_chai, _utils) {
@@ -91,7 +91,7 @@ describe('utilities', function () {
 
         expect(_chai.Assertion).to.not.respondTo('eqqqual');
         _chai.Assertion.addMethod('eqqqual', function (str) {
-          var object = utils.flag(this, 'object');
+          let object = utils.flag(this, 'object');
           new _chai.Assertion(object).to.be.eql(str);
         });
 
@@ -134,8 +134,8 @@ describe('utilities', function () {
     });
 
     it('addMethod returns new assertion with flags copied over', function () {
-      var assertion1 = expect('foo');
-      var assertion2 = assertion1.to.returnNewAssertion();
+      let assertion1 = expect('foo');
+      let assertion2 = assertion1.to.returnNewAssertion();
 
       // Checking if a new assertion was returned
       expect(assertion1).to.not.be.equal(assertion2);
@@ -150,38 +150,38 @@ describe('utilities', function () {
       // `length`. Note: 'instanceof' cannot be used here because the test will
       // fail in IE 10 due to how addChainableMethod works without __proto__
       // support. Therefore, test the constructor property of length instead.
-      var anAssertion = expect([1, 2, 3]).to.be.an.instanceof(Array);
+      let anAssertion = expect([1, 2, 3]).to.be.an.instanceof(Array);
       expect(anAssertion.length.constructor).to.equal(assertionConstructor);
 
-      var anotherAssertion = expect([1, 2, 3]).to.have.a.lengthOf(3).and.to.be.ok;
+      let anotherAssertion = expect([1, 2, 3]).to.have.a.lengthOf(3).and.to.be.ok;
       expect(anotherAssertion.length.constructor).to.equal(assertionConstructor);
     });
 
     it('addMethod sets `ssfi` when `lockSsfi` isn\'t set', function () {
-      var origAssertion = expect(1);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(1);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-      var newAssertion = origAssertion.eqqqual(1);
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.eqqqual(1);
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.not.equal(newSsfi);
     });
 
     it('addMethod doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect(1);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(1);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.eqqqual(1);
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.eqqqual(1);
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
   });
 
   describe('overwriteMethod', function () {
-    var assertionConstructor, utils;
+    let assertionConstructor, utils;
 
     before(function() {
       chai.config.includeStack = false;
@@ -229,13 +229,13 @@ describe('utilities', function () {
     it('overwriteMethod', function () {
       chai.use(function (_chai, utils) {
         _chai.Assertion.addMethod('eqqqual', function (str) {
-          var object = utils.flag(this, 'object');
+          let object = utils.flag(this, 'object');
           new _chai.Assertion(object).to.be.eql(str);
         });
 
         _chai.Assertion.overwriteMethod('eqqqual', function (_super) {
           return function (str) {
-            var object = utils.flag(this, 'object');
+            let object = utils.flag(this, 'object');
             if (object == 'cucumber' && str == 'cuke') {
               utils.flag(this, 'cucumber', true);
             } else {
@@ -245,9 +245,9 @@ describe('utilities', function () {
         });
       });
 
-      var vege = expect('cucumber').to.eqqqual('cucumber');
+      let vege = expect('cucumber').to.eqqqual('cucumber');
       expect(vege.__flags).to.not.have.property('cucumber');
-      var cuke = expect('cucumber').to.eqqqual('cuke');
+      let cuke = expect('cucumber').to.eqqqual('cuke');
       expect(cuke.__flags).to.have.property('cucumber');
 
       chai.use(function (_chai, _) {
@@ -260,7 +260,7 @@ describe('utilities', function () {
         });
       });
 
-      var dne = expect('something').to.doesnotexist();
+      let dne = expect('something').to.doesnotexist();
       expect(dne.__flags).to.have.property('doesnt');
 
       chai.use(function (_chai, _) {
@@ -274,8 +274,8 @@ describe('utilities', function () {
         });
       });
 
-      var dneFail = expect('something');
-      var dneError;
+      let dneFail = expect('something');
+      let dneError;
       try { dneFail.doesnotexistfail(); }
       catch (e) { dneError = e; }
       expect(dneFail.__flags).to.have.property('doesnt');
@@ -323,8 +323,8 @@ describe('utilities', function () {
     });
 
     it('should return a new assertion with flags copied over', function () {
-      var assertion1 = expect('four');
-      var assertion2 = assertion1.four();
+      let assertion1 = expect('four');
+      let assertion2 = assertion1.four();
 
       // Checking if a new assertion was returned
       expect(assertion1).to.not.be.equal(assertion2);
@@ -343,31 +343,31 @@ describe('utilities', function () {
     });
 
     it('overwriteMethod sets `ssfi` when `lockSsfi` isn\'t set', function () {
-      var origAssertion = expect(4);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(4);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-      var newAssertion = origAssertion.four();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.four();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.not.equal(newSsfi);
     });
 
     it('overwriteMethod doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect(4);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(4);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.four();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.four();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
   });
 
   describe('addProperty', function() {
-    var assertionConstructor = chai.Assertion;
-    var utils;
+    let assertionConstructor = chai.Assertion;
+    let utils;
 
     before(function() {
       chai.use(function (_chai, _utils) {
@@ -406,7 +406,7 @@ describe('utilities', function () {
     });
 
     it('addProperty', function () {
-      var assert = expect('chai').to.be.tea;
+      let assert = expect('chai').to.be.tea;
       expect(assert.__flags.tea).to.equal('chai');
     });
 
@@ -415,8 +415,8 @@ describe('utilities', function () {
     });
 
     it('addProperty returns a new assertion with flags copied over', function () {
-      var assertion1 = expect('foo');
-      var assertion2 = assertion1.is.thing;
+      let assertion1 = expect('foo');
+      let assertion2 = assertion1.is.thing;
 
       // Checking if a new assertion was returned
       expect(assertion1).to.not.be.equal(assertion2);
@@ -439,30 +439,30 @@ describe('utilities', function () {
     });
 
     it('addProperty sets `ssfi` when `lockSsfi` isn\'t set', function () {
-      var origAssertion = expect(1);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(1);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-      var newAssertion = origAssertion.to.be.tea;
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.tea;
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.not.equal(newSsfi);
     });
 
     it('addProperty doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect(1);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(1);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.to.be.tea;
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.tea;
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
   });
 
   describe('overwriteProperty', function () {
-    var assertionConstructor, utils;
+    let assertionConstructor, utils;
 
     before(function() {
       chai.config.includeStack = false;
@@ -477,7 +477,7 @@ describe('utilities', function () {
 
         _chai.Assertion.overwriteProperty('tea', function (_super) {
           return function () {
-            var act = utils.flag(this, 'object');
+            let act = utils.flag(this, 'object');
             if (act === 'matcha') {
               utils.flag(this, 'tea', 'matcha');
             } else {
@@ -536,9 +536,9 @@ describe('utilities', function () {
     });
 
     it('overwriteProperty', function () {
-      var matcha = expect('matcha').to.be.tea;
+      let matcha = expect('matcha').to.be.tea;
       expect(matcha.__flags.tea).to.equal('matcha');
-      var assert = expect('something').to.be.tea;
+      let assert = expect('something').to.be.tea;
       expect(assert.__flags.tea).to.equal('chai');
     });
 
@@ -575,8 +575,8 @@ describe('utilities', function () {
     });
 
     it('should return new assertion with flags copied over', function() {
-      var assertion1 = expect('foo');
-      var assertion2 = assertion1.is.foo;
+      let assertion1 = expect('foo');
+      let assertion2 = assertion1.is.foo;
 
       // Checking if a new assertion was returned
       expect(assertion1).to.not.be.equal(assertion2);
@@ -608,24 +608,24 @@ describe('utilities', function () {
       });
 
       it('overwriteProperty sets `ssfi` when `lockSsfi` isn\'t set', function () {
-        var origAssertion = expect(4);
-        var origSsfi = utils.flag(origAssertion, 'ssfi');
+        let origAssertion = expect(4);
+        let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-        var newAssertion = origAssertion.to.be.four;
-        var newSsfi = utils.flag(newAssertion, 'ssfi');
+        let newAssertion = origAssertion.to.be.four;
+        let newSsfi = utils.flag(newAssertion, 'ssfi');
 
         expect(origSsfi).to.not.equal(newSsfi);
       });
     });
 
     it('overwriteProperty doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect(4);
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect(4);
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.to.be.four;
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.four;
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
@@ -636,7 +636,7 @@ describe('utilities', function () {
       expect(_.getMessage({}, [])).to.equal('');
       expect(_.getMessage({}, [null, null, null])).to.equal('');
 
-      var obj = {};
+      let obj = {};
       _.flag(obj, 'message', 'foo');
       expect(_.getMessage(obj, [])).to.contain('foo');
     });
@@ -644,9 +644,9 @@ describe('utilities', function () {
 
   it('getMessage passed message as function', function () {
     chai.use(function (_chai, _) {
-      var obj = {};
-      var msg = function() { return "expected a to eql b"; }
-      var negateMsg = function() { return "expected a not to eql b"; }
+      let obj = {};
+      let msg = function() { return "expected a to eql b"; }
+      let negateMsg = function() { return "expected a not to eql b"; }
       expect(_.getMessage(obj, [null, msg, negateMsg])).to.equal("expected a to eql b");
       _.flag(obj, 'negate', true);
       expect(_.getMessage(obj, [null, msg, negateMsg])).to.equal("expected a not to eql b");
@@ -655,9 +655,9 @@ describe('utilities', function () {
 
   it('getMessage template tag substitution', function () {
     chai.use(function (_chai, _) {
-      var objName = 'trojan horse';
-      var actualValue = 'an actual value';
-      var expectedValue = 'an expected value';
+      let objName = 'trojan horse';
+      let actualValue = 'an actual value';
+      let expectedValue = 'an expected value';
       [
           // known template tags
           {
@@ -707,7 +707,7 @@ describe('utilities', function () {
           config.objName = config.objName || objName;
           config.actualValue = config.actualValue || actualValue;
           config.expectedValue = config.expectedValue || expectedValue;
-          var obj = {_obj: config.actualValue};
+          let obj = {_obj: config.actualValue};
           _.flag(obj, 'object', config.objName);
           expect(_.getMessage(obj, [null, config.template, null, config.expectedValue])).to.equal(config.expected);
       });
@@ -716,7 +716,7 @@ describe('utilities', function () {
 
   it('inspect with custom stylize-calling inspect()s', function () {
     chai.use(function (_chai, _) {
-      var obj = {
+      let obj = {
         outer: {
           inspect: function (depth, options) {
             return options.stylize('Object content', 'string');
@@ -729,7 +729,7 @@ describe('utilities', function () {
 
   it('inspect with custom object-returning inspect()s', function () {
     chai.use(function (_chai, _) {
-      var obj = {
+      let obj = {
         outer: {
           inspect: function () {
             return { foo: 'bar' };
@@ -766,7 +766,7 @@ describe('utilities', function () {
 
   it('inspect every kind of available TypedArray', function () {
     chai.use(function (_chai, _) {
-      var arr = [1, 2, 3]
+      let arr = [1, 2, 3]
         , exp = 'Array[ 1, 2, 3 ]'
         , isNode = true;
 
@@ -802,8 +802,8 @@ describe('utilities', function () {
 
   it('inspect an assertion', function () {
     chai.use(function (_chai, _) {
-      var assertion = expect(1);
-      var anInspectFn = function() {
+      let assertion = expect(1);
+      let anInspectFn = function() {
         return _.inspect(assertion);
       };
 
@@ -814,12 +814,12 @@ describe('utilities', function () {
   it('truncate long TypedArray', function () {
     chai.use(function (_chai, _) {
 
-      var arr = []
+      let arr = []
         , exp = 'Int8Array[ 1, 2, 3, 4, 5, 6, 7, …(993) ]'
         , isNode = true;
 
       // Filling arr with lots of elements
-      for (var i = 1; i <= 1000; i++) {
+      for (let i = 1; i <= 1000; i++) {
         arr.push(i);
       }
 
@@ -835,7 +835,7 @@ describe('utilities', function () {
   });
 
   describe('addChainableMethod', function() {
-    var assertionConstructor, utils;
+    let assertionConstructor, utils;
 
     before(function() {
       chai.use(function (_chai, _utils) {
@@ -857,7 +857,7 @@ describe('utilities', function () {
           utils.flag(this, 'mySpecificFlag', 'value1');
           utils.flag(this, 'ultraSpecificFlag', 'value2');
 
-          var obj = utils.flag(this, 'object');
+          let obj = utils.flag(this, 'object');
           new _chai.Assertion(obj).to.be.equal(str);
         });
 
@@ -888,13 +888,13 @@ describe('utilities', function () {
 
       // Verify whether the original Function properties are present.
       // see https://github.com/chaijs/chai/commit/514dd6ce4#commitcomment-2593383
-      var propertyDescriptor = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, "x");
+      let propertyDescriptor = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, "x");
       expect(propertyDescriptor.get).to.have.property("call", Function.prototype.call);
       expect(propertyDescriptor.get).to.have.property("apply", Function.prototype.apply);
       expect(propertyDescriptor.get()).to.have.property("call", Function.prototype.call);
       expect(propertyDescriptor.get()).to.have.property("apply", Function.prototype.apply);
 
-      var obj = {};
+      let obj = {};
       expect(obj).x.to.be.ok;
       expect(obj).to.have.property('__x', 'X!');
     });
@@ -902,8 +902,8 @@ describe('utilities', function () {
     it('addChainableMethod should return a new assertion with flags copied over', function () {
       chai.config.proxyExcludedKeys.push('nodeType');
 
-      var assertion1 = expect('bar');
-      var assertion2 = assertion1.foo('bar');
+      let assertion1 = expect('bar');
+      let assertion2 = assertion1.foo('bar');
 
       // Checking if a new assertion was returned
       expect(assertion1).to.not.be.equal(assertion2);
@@ -922,31 +922,31 @@ describe('utilities', function () {
     });
 
     it('addChainableMethod sets `ssfi` when `lockSsfi` isn\'t set', function () {
-      var origAssertion = expect('x');
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect('x');
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-      var newAssertion = origAssertion.to.be.x();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.x();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.not.equal(newSsfi);
     });
 
     it('addChainableMethod doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect('x');
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect('x');
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.to.be.x();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.x();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
   });
 
   describe('overwriteChainableMethod', function() {
-    var assertionConstructor;
-    var utils;
+    let assertionConstructor;
+    let utils;
 
     before(function() {
       chai.use(function (_chai, _utils) {
@@ -1009,23 +1009,23 @@ describe('utilities', function () {
       expect(function () {
         expect("foo").x();
       }).to.throw(chai.AssertionError);
-      var obj = {};
+      let obj = {};
       expect(obj).x.to.be.ok;
       expect(obj).to.have.property('__x', 'X!');
 
       // Test the new behavior of 'x'
-      var assertion = expect('foo').x.to.be.ok;
+      let assertion = expect('foo').x.to.be.ok;
       expect(utils.flag(assertion, 'message')).to.equal('x marks the spot');
       expect(function () {
-        var assertion = expect('x');
+        let assertion = expect('x');
         utils.flag(assertion, 'marked', true);
         assertion.x()
       }).to.throw(chai.AssertionError);
     });
 
     it('should return a new assertion with flags copied over', function () {
-      var assertion1 = expect('x');
-      var assertion2 = assertion1.x();
+      let assertion1 = expect('x');
+      let assertion2 = assertion1.x();
 
       chai.config.proxyExcludedKeys.push('nodeType');
 
@@ -1050,23 +1050,23 @@ describe('utilities', function () {
     });
 
     it('overwriteChainableMethod sets `ssfi` when `lockSsfi` isn\'t set', function () {
-      var origAssertion = expect('x');
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect('x');
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
-      var newAssertion = origAssertion.to.be.x();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.x();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.not.equal(newSsfi);
     });
 
     it('overwriteChainableMethod doesn\'t set `ssfi` when `lockSsfi` is set', function () {
-      var origAssertion = expect('x');
-      var origSsfi = utils.flag(origAssertion, 'ssfi');
+      let origAssertion = expect('x');
+      let origSsfi = utils.flag(origAssertion, 'ssfi');
 
       utils.flag(origAssertion, 'lockSsfi', true);
 
-      var newAssertion = origAssertion.to.be.x();
-      var newSsfi = utils.flag(newAssertion, 'ssfi');
+      let newAssertion = origAssertion.to.be.x();
+      let newSsfi = utils.flag(newAssertion, 'ssfi');
 
       expect(origSsfi).to.equal(newSsfi);
     });
@@ -1074,7 +1074,7 @@ describe('utilities', function () {
 
   it('compareByInspect', function () {
     chai.use(function (_chai, _) {
-      var cbi = _.compareByInspect;
+      let cbi = _.compareByInspect;
 
       // "'c" is less than "'d"
       expect(cbi('cat', 'dog')).to.equal(-1);
@@ -1092,7 +1092,7 @@ describe('utilities', function () {
   });
 
   describe('getOwnEnumerablePropertySymbols', function () {
-    var gettem;
+    let gettem;
 
     beforeEach(function () {
       chai.use(function (_chai, _) {
@@ -1101,7 +1101,7 @@ describe('utilities', function () {
     });
 
     it('returns an empty array if no symbols', function () {
-      var obj = {}
+      let obj = {}
         , cat = 'cat';
 
       obj[cat] = 42;
@@ -1110,7 +1110,7 @@ describe('utilities', function () {
     });
 
     it('returns enumerable symbols only', function () {
-      var cat = Symbol('cat')
+      let cat = Symbol('cat')
         , dog = Symbol('dog')
         , frog = Symbol('frog')
         , cow = 'cow'
@@ -1131,7 +1131,7 @@ describe('utilities', function () {
   });
 
   describe('getOwnEnumerableProperties', function () {
-    var gettem;
+    let gettem;
 
     beforeEach(function () {
       chai.use(function (_chai, _) {
@@ -1140,7 +1140,7 @@ describe('utilities', function () {
     });
 
     it('returns enumerable property names if no symbols', function () {
-      var cat = 'cat'
+      let cat = 'cat'
         , dog = 'dog'
         , frog = 'frog'
         , obj = {};
@@ -1157,7 +1157,7 @@ describe('utilities', function () {
     });
 
     it('returns enumerable property names and symbols', function () {
-      var cat = Symbol('cat')
+      let cat = Symbol('cat')
         , dog = Symbol('dog')
         , frog = Symbol('frog')
         , bird = 'bird'
@@ -1183,7 +1183,7 @@ describe('utilities', function () {
   });
 
   describe('proxified object', function () {
-    var proxify;
+    let proxify;
 
     beforeEach(function () {
       chai.use(function (_chai, _) {
@@ -1192,22 +1192,22 @@ describe('utilities', function () {
     });
 
     it('returns property value if an existing property is read', function () {
-      var pizza = proxify({mushrooms: 42});
+      let pizza = proxify({mushrooms: 42});
 
       expect(pizza.mushrooms).to.equal(42);
     });
 
     it('returns property value if an existing property is read when nonChainableMethodName is set', function () {
-      var bake = function () {};
+      let bake = function () {};
       bake.numPizzas = 2;
 
-      var bakeProxy = proxify(bake, 'bake');
+      let bakeProxy = proxify(bake, 'bake');
 
       expect(bakeProxy.numPizzas).to.equal(2);
     });
 
     it('throws invalid property error if a non-existent property is read', function () {
-      var pizza = proxify({});
+      let pizza = proxify({});
 
       expect(function () {
         pizza.mushrooms;
@@ -1215,7 +1215,7 @@ describe('utilities', function () {
     });
 
     it('throws invalid use error if a non-existent property is read when nonChainableMethodName is set', function () {
-      var bake = proxify(function () {}, 'bake');
+      let bake = proxify(function () {}, 'bake');
 
       expect(function () {
         bake.numPizzas;
@@ -1223,7 +1223,7 @@ describe('utilities', function () {
     });
 
     it('suggests a fix if a non-existent prop looks like a typo', function () {
-      var pizza = proxify({foo: 1, bar: 2, baz: 3});
+      let pizza = proxify({foo: 1, bar: 2, baz: 3});
 
       expect(function () {
         pizza.phoo;
@@ -1231,7 +1231,7 @@ describe('utilities', function () {
     });
 
     it('doesn\'t take exponential time to find string distances', function () {
-      var pizza = proxify({veryLongPropertyNameWithLotsOfLetters: 1});
+      let pizza = proxify({veryLongPropertyNameWithLotsOfLetters: 1});
 
       expect(function () {
         pizza.extremelyLongPropertyNameWithManyLetters;
@@ -1241,14 +1241,14 @@ describe('utilities', function () {
     });
 
     it('doesn\'t suggest properties from Object.prototype', function () {
-      var pizza = proxify({string: 5});
+      let pizza = proxify({string: 5});
       expect(function () {
         pizza.tostring;
       }).to.throw('Invalid Chai property: tostring. Did you mean "string"?');
     });
 
     it('doesn\'t suggest internally properties', function () {
-      var pizza = proxify({flags: 5, __flags: 6});
+      let pizza = proxify({flags: 5, __flags: 6});
       expect(function () {
         pizza.___flags; // 3 underscores; closer to '__flags' than 'flags'
       }).to.throw('Invalid Chai property: ___flags. Did you mean "flags"?');
@@ -1256,7 +1256,7 @@ describe('utilities', function () {
 
     // .then is excluded from property validation for promise support
     it('doesn\'t throw error if non-existent `then` is read', function () {
-      var pizza = proxify({});
+      let pizza = proxify({});
 
       expect(function () {
         pizza.then;
@@ -1265,10 +1265,10 @@ describe('utilities', function () {
   });
 
   describe('addLengthGuard', function () {
-    var fnLengthDesc = Object.getOwnPropertyDescriptor(function () {}, 'length');
+    let fnLengthDesc = Object.getOwnPropertyDescriptor(function () {}, 'length');
     if (!fnLengthDesc.configurable) return;
 
-    var addLengthGuard;
+    let addLengthGuard;
 
     beforeEach(function () {
       chai.use(function (_chai, _) {
@@ -1277,7 +1277,7 @@ describe('utilities', function () {
     });
 
     it('throws invalid use error if `.length` is read when `methodName` is defined and `isChainable` is false', function () {
-      var hoagie = addLengthGuard({}, 'hoagie', false);
+      let hoagie = addLengthGuard({}, 'hoagie', false);
 
       expect(function () {
         hoagie.length;
@@ -1285,7 +1285,7 @@ describe('utilities', function () {
     });
 
     it('throws incompatible `.length` error if `.length` is read when `methodName` is defined and `isChainable` is true', function () {
-      var hoagie = addLengthGuard({}, 'hoagie', true);
+      let hoagie = addLengthGuard({}, 'hoagie', true);
 
       expect(function () {
         hoagie.length;
@@ -1294,7 +1294,7 @@ describe('utilities', function () {
   });
 
   describe("isProxyEnabled", function () {
-    var origUseProxy, isProxyEnabled;
+    let origUseProxy, isProxyEnabled;
 
     before(function () {
       chai.use(function (_chai, _) {
@@ -1329,7 +1329,7 @@ describe('utilities', function () {
         expect(_.getOperator({}, [])).to.equal(undefined);
         expect(_.getOperator({}, [null, null, null])).to.equal(undefined);
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'operator', 'my-operator');
         expect(_.getOperator(obj, [])).to.equal('my-operator');
       });
@@ -1345,13 +1345,13 @@ describe('utilities', function () {
 
     it('Must return deepStrictEqual if "expected" is a object and assertion is for equal', function() {
       chai.use(function(_chai, _) {
-        var expected = Object.create({
+        let expected = Object.create({
           dummyProperty1: 'dummyProperty1',
           dummyProperty2: 'dummyProperty2',
           dummyProperty3: 'dummyProperty3'
         });
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', false);
 
         expect(
@@ -1367,11 +1367,14 @@ describe('utilities', function () {
 
     it('Must return deepStrictEqual if "expected" is a function and assertion is for equal', function() {
       chai.use(function(_chai, _) {
+        /**
+         *
+         */
         function expected () {
           this.prop = 'prop';
         }
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', false);
 
         expect(
@@ -1387,11 +1390,11 @@ describe('utilities', function () {
 
     it('Must return deepStrictEqual if "expected" is an array and assertion is for equal', function() {
       chai.use(function(_chai, _) {
-        var expected = [
+        let expected = [
           'item 1'
         ];
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', false);
 
         expect(
@@ -1407,9 +1410,9 @@ describe('utilities', function () {
 
     it('Must return strictEqual if "expected" is a string and assertion is for equal', function() {
       chai.use(function(_chai, _) {
-        var expected = 'someString';
+        let expected = 'someString';
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', false);
 
         expect(
@@ -1425,13 +1428,13 @@ describe('utilities', function () {
 
     it('Must return notDeepStrictEqual if "expected" is a object and assertion is for inequality', function() {
       chai.use(function(_chai, _) {
-        var expected = Object.create({
+        let expected = Object.create({
           dummyProperty1: 'dummyProperty1',
           dummyProperty2: 'dummyProperty2',
           dummyProperty3: 'dummyProperty3'
         });
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', true);
 
         expect(
@@ -1447,11 +1450,14 @@ describe('utilities', function () {
 
     it('Must return notDeepStrictEqual if "expected" is a function and assertion is for inequality', function() {
       chai.use(function(_chai, _) {
+        /**
+         *
+         */
         function expected () {
           this.prop = 'prop';
         }
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', true);
 
         expect(
@@ -1467,11 +1473,11 @@ describe('utilities', function () {
 
     it('Must return notDeepStrictEqual if "expected" is an array and assertion is for inequality', function() {
       chai.use(function(_chai, _) {
-        var expected = [
+        let expected = [
           'item 1'
         ];
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', true);
 
         expect(
@@ -1487,9 +1493,9 @@ describe('utilities', function () {
 
     it('Must return notStrictEqual if "expected" is a string and assertion is for inequality', function() {
       chai.use(function(_chai, _) {
-        var expected = 'someString';
+        let expected = 'someString';
 
-        var obj = {};
+        let obj = {};
         _.flag(obj, 'negate', true);
 
         expect(
@@ -1505,7 +1511,7 @@ describe('utilities', function () {
   });
 
   describe('eventEmitter', function() {
-    var eventHandler = null;
+    let eventHandler = null;
 
     beforeEach(function() {
       if (eventHandler) {
@@ -1518,11 +1524,11 @@ describe('utilities', function () {
     });
 
     it('emits addMethod', function () {
-      var calledTimes = 0;
+      let calledTimes = 0;
 
       chai.use(function(_chai, _utils) {
         const eqqqual = function (str) {
-          var object = _utils.flag(this, 'object');
+          let object = _utils.flag(this, 'object');
           new _chai.Assertion(object).to.be.eql(str);
         }
         chai.util.events.addEventListener("addMethod", eventHandler = function({ name, fn }) {
@@ -1536,7 +1542,7 @@ describe('utilities', function () {
     });
 
     it('emits addProperty', function () {
-      var calledTimes = 0;
+      let calledTimes = 0;
 
       chai.use(function(_chai, _utils) {
         const getter = function () {
@@ -1554,7 +1560,7 @@ describe('utilities', function () {
     });
 
     it('emits addChainableMethod', function () {
-      var calledTimes = 0;
+      let calledTimes = 0;
 
       chai.use(function(_chai, _utils) {
         const method = function () {

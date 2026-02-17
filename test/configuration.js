@@ -4,13 +4,17 @@ import {globalErr as err} from './bootstrap/index.js';
 import '../register-should.js'; 
 
 describe('configuration', function () {
-  var assert = chai.assert;
-  var expect = chai.expect;
+  let assert = chai.assert;
+  let expect = chai.expect;
 
-  var origConfig;
+  let origConfig;
 
   beforeEach(function() {
     // backup current config
+    /**
+     *
+     * @param o
+     */
     function clone(o) {
       return JSON.parse(JSON.stringify(o));
     }
@@ -70,28 +74,46 @@ describe('configuration', function () {
 
     describe('expect interface', function () {
       // Functions that always throw an error
+      /**
+       *
+       */
       function badPropertyAssertion() {
         expect(42).to.be.false;
       }
+      /**
+       *
+       */
       function badOverwrittenPropertyAssertion() {
         expect(42).tmpProperty;
       }
+      /**
+       *
+       */
       function badMethodAssertion() {
         expect(42).to.equal(false);
       }
+      /**
+       *
+       */
       function badOverwrittenMethodAssertion() {
         expect(42).tmpMethod();
       }
+      /**
+       *
+       */
       function badChainableMethodAssertion() {
         expect(42).to.be.a('string');
       }
+      /**
+       *
+       */
       function badOverwrittenChainableMethodAssertion() {
         expect(42).tmpChainableMethod();
       }
 
       describe('when true', function () {
         describe('failed property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -114,7 +136,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -137,7 +159,7 @@ describe('configuration', function () {
         });
 
         describe('failed method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -159,7 +181,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -181,7 +203,7 @@ describe('configuration', function () {
         });
 
         describe('failed chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -203,7 +225,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -227,7 +249,7 @@ describe('configuration', function () {
 
       describe('when false', function () {
         describe('failed property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -250,7 +272,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -273,7 +295,7 @@ describe('configuration', function () {
         });
 
         describe('failed method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -295,7 +317,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -317,7 +339,7 @@ describe('configuration', function () {
         });
 
         describe('failed chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -339,7 +361,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -364,28 +386,46 @@ describe('configuration', function () {
 
     describe('should interface', function () {
       // Functions that always throw an error
+      /**
+       *
+       */
       function badPropertyAssertion() {
         (42).should.be.false;
       }
+      /**
+       *
+       */
       function badOverwrittenPropertyAssertion() {
         (42).should.tmpProperty;
       }
+      /**
+       *
+       */
       function badMethodAssertion() {
         (42).should.equal(false);
       }
+      /**
+       *
+       */
       function badOverwrittenMethodAssertion() {
         (42).should.tmpMethod();
       }
+      /**
+       *
+       */
       function badChainableMethodAssertion() {
         (42).should.be.a('string');
       }
+      /**
+       *
+       */
       function badOverwrittenChainableMethodAssertion() {
         (42).should.tmpChainableMethod();
       }
 
       describe('when true', function () {
         describe('failed property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -408,7 +448,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -431,7 +471,7 @@ describe('configuration', function () {
         });
 
         describe('failed method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -453,7 +493,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -475,7 +515,7 @@ describe('configuration', function () {
         });
 
         describe('failed chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -497,7 +537,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = true;
@@ -521,7 +561,7 @@ describe('configuration', function () {
 
       describe('when false', function () {
         describe('failed property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -544,7 +584,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten property assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -567,7 +607,7 @@ describe('configuration', function () {
         });
 
         describe('failed method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -589,7 +629,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -611,7 +651,7 @@ describe('configuration', function () {
         });
 
         describe('failed chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -633,7 +673,7 @@ describe('configuration', function () {
         });
 
         describe('failed overwritten chainable method assertions', function () {
-          var caughtErr = '__PRETEST__';
+          let caughtErr = '__PRETEST__';
 
           before(function () {
             chai.config.includeStack = false;
@@ -676,8 +716,8 @@ describe('configuration', function () {
   });
 
   describe('deprecated properties', function() {
-    var origWarnFn;
-    var warnings;
+    let origWarnFn;
+    let warnings;
 
     beforeEach(function() {
       origWarnFn = console.warn;
@@ -733,7 +773,7 @@ describe('configuration', function () {
   });
 
   describe('useProxy', function() {
-    var readNoExistentProperty = function() {
+    let readNoExistentProperty = function() {
       expect(false).to.be.tue; // typo: tue should be true
     };
 
@@ -757,9 +797,9 @@ describe('configuration', function () {
   });
 
   describe('proxyExcludedKeys', function() {
-    var readNoExistentProperty = function(prop) {
+    let readNoExistentProperty = function(prop) {
       return function() {
-        var assertion = expect(false);
+        let assertion = expect(false);
         expect(assertion).to.not.have.key(prop);
         assertion[prop];
       }

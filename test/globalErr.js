@@ -2,7 +2,7 @@ import * as chai from '../index.js';
 import {globalErr as err} from './bootstrap/index.js';
 
 describe('globalErr', function () {
-  var noop = function () {}
+  let noop = function () {}
     , Err = chai.AssertionError
     , expect = chai.expect;
 
@@ -67,11 +67,11 @@ describe('globalErr', function () {
   });
 
   it('should pass operator if possible during plain object comparison', function () {
-    var val1 = {
+    let val1 = {
       propVal1: 'val1'
     };
 
-    var val2 = {
+    let val2 = {
       propVal2: 'val2'
     };
 
@@ -95,10 +95,16 @@ describe('globalErr', function () {
   });
 
   it('should pass operator if possible during function comparison', function () {
+    /**
+     *
+     */
     function f1 () {
       this.propF1 = 'propF1';
     }
 
+    /**
+     *
+     */
     function f2 () {
       this.propF2 = 'propF2';
     }
@@ -123,14 +129,14 @@ describe('globalErr', function () {
   });
 
   it('should pass operator if possible during object comparison', function () {
-    var val1 = [
+    let val1 = [
         'string1'
       , 'string2'
       , 'string3'
       , 'string4'
     ];
 
-    var val2 = [
+    let val2 = [
       'string5'
     , 'string6'
     , 'string7'
@@ -176,7 +182,7 @@ describe('globalErr', function () {
   });
 
   it('should throw if fn is invalid', function () {
-    var vals = [
+    let vals = [
         'cat'
       , 42
       , []
@@ -199,7 +205,7 @@ describe('globalErr', function () {
   });
 
   it('should throw if val is invalid', function () {
-    var vals = [
+    let vals = [
         42
       , []
       , new Date()

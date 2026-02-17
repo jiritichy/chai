@@ -1,5 +1,10 @@
 import * as chai from '../../index.js';
 
+/**
+ *
+ * @param expr
+ * @param msg
+ */
 function assert (expr, msg) {
   if (!expr) {
     throw new Error(msg || 'Assertion Failed');
@@ -8,9 +13,17 @@ function assert (expr, msg) {
 
 const type = chai.util.type
 
+/**
+ *
+ * @param condition
+ */
 function describeIf(condition) {
   return condition ? describe : describe.skip;
 }
+/**
+ *
+ * @param condition
+ */
 function itIf(condition) {
   return condition ? it : it.skip;
 }
