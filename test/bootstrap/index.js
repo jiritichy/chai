@@ -1,6 +1,6 @@
 import * as chai from '../../index.js';
 
-var isStackSupported = false;
+let isStackSupported = false;
 if (typeof Error.captureStackTrace !== 'undefined') {
   try {
     throw Error();
@@ -24,9 +24,15 @@ if (typeof Error.captureStackTrace !== 'undefined') {
  *
  * @param {Function} function that's expected to throw an error
  * @param {Mixed} expected properties of the expected error
- * @param {Boolean} skipStackTest if truthy, don't validate stack trace
+ * @param {boolean} skipStackTest if truthy, don't validate stack trace
  */
 
+/**
+ *
+ * @param fn
+ * @param val
+ * @param skipStackTest
+ */
 export function globalErr(fn, val, skipStackTest) {
   if (chai.util.type(fn) !== 'Function')
     throw new chai.AssertionError('Invalid fn');

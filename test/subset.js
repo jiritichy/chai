@@ -5,7 +5,7 @@ describe('containsSubset', function () {
   const should = chai.Should();
 
   describe('plain object', function () {
-    var testedObject = {
+    let testedObject = {
       a: 'b',
       c: 'd'
     };
@@ -32,7 +32,7 @@ describe('containsSubset', function () {
   });
 
   describe('complex object', function () {
-    var testedObject = {
+    let testedObject = {
       a: 'b',
       c: 'd',
       e: {
@@ -95,7 +95,7 @@ describe('containsSubset', function () {
   });
 
   describe('circular objects', function () {
-    var object = {};
+    let object = {};
 
     before(function () {
       object.arr = [object, object];

@@ -2,7 +2,7 @@ import * as chai from '../index.js';
 import {globalErr as err} from './bootstrap/index.js';
 
 describe('should', function() {
-  var should = chai.Should();
+  let should = chai.Should();
 
   it('assertion', function(){
     'test'.should.be.a('string');
@@ -133,7 +133,7 @@ describe('should', function() {
     });
 
     describe('length guard', function () {
-      var fnLengthDesc = Object.getOwnPropertyDescriptor(function () {}, 'length');
+      let fnLengthDesc = Object.getOwnPropertyDescriptor(function () {}, 'length');
       if (!fnLengthDesc.configurable) return;
 
       it('doesn\'t throw when `.length` follows `.should`', function () {
@@ -211,6 +211,10 @@ describe('should', function() {
   });
 
   it('no-op chains', function() {
+    /**
+     *
+     * @param chain
+     */
     function test(chain) {
       // tests that chain exists
       ((1).should[chain]).should.not.undefined;
@@ -255,7 +259,7 @@ describe('should', function() {
   });
 
   it('root exist', function () {
-    var foo = 'foo'
+    let foo = 'foo'
       , bar = undefined;
     should.exist(foo);
     should.not.exist(bar);
@@ -273,7 +277,7 @@ describe('should', function() {
   });
 
   it('root equal', function () {
-    var value1 = 'value'
+    let value1 = 'value'
       , value2 = 'value'
       , foo = 'foo';
     should.equal(value1, value2);
@@ -401,7 +405,7 @@ describe('should', function() {
   });
 
   it('arguments', function(){
-    var args = (function(){ return arguments; })(1,2,3);
+    let args = (function(){ return arguments; })(1,2,3);
     args.should.be.arguments;
     [].should.not.be.arguments;
 
@@ -411,6 +415,10 @@ describe('should', function() {
   });
 
   it('".should" getter should unbox primitive values', function(){
+    /**
+     *
+     * @param value
+     */
     function assert(value) {
       const AssertionObject = value.should;
       const type = typeof value;
@@ -428,7 +436,7 @@ describe('should', function() {
   });
 
   it('.equal()', function(){
-    var foo;
+    let foo;
     should.equal(undefined, foo);
   });
 
@@ -457,6 +465,9 @@ describe('should', function() {
   });
 
   it('instanceof', function(){
+    /**
+     *
+     */
     function Foo(){}
     new Foo().should.be.an.instanceof(Foo);
 
@@ -496,8 +507,11 @@ describe('should', function() {
     }, "The instanceof assertion needs a constructor but undefined was given.");
 
     err(function(){
+      /**
+       *
+       */
       function Thing(){};
-      var t = new Thing();
+      let t = new Thing();
       Thing.prototype = 1337;
       t.should.be.an.instanceof(Thing);
     }, 'The instanceof assertion needs a constructor but Function was given.', true);
@@ -507,8 +521,8 @@ describe('should', function() {
     }, "The instanceof assertion needs a constructor but Symbol was given.");
 
     err(function() {
-      var FakeConstructor = {};
-      var fakeInstanceB = 4;
+      let FakeConstructor = {};
+      let fakeInstanceB = 4;
       FakeConstructor[Symbol.hasInstance] = function (val) {
         return val === 3;
       };
@@ -517,8 +531,8 @@ describe('should', function() {
     }, 'expected 4 to be an instance of an unnamed constructor');
 
     err(function() {
-      var FakeConstructor = {};
-      var fakeInstanceB = 4;
+      let FakeConstructor = {};
+      let fakeInstanceB = 4;
       FakeConstructor[Symbol.hasInstance] = function (val) {
         return val === 4;
       };
@@ -588,7 +602,7 @@ describe('should', function() {
     (new Map()).should.have.length.within(0, 0);
     (new Map()).should.have.lengthOf.within(0, 0);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -607,7 +621,7 @@ describe('should', function() {
     (new Set()).should.have.length.within(0, 0);
     (new Set()).should.have.lengthOf.within(0, 0);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -625,12 +639,12 @@ describe('should', function() {
   });
 
   it('within(start, finish) (dates)', function(){
-    var now = new Date();
-    var oneSecondBefore = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
-    var nowISO = now.toISOString();
-    var beforeISO = oneSecondBefore.toISOString();
-    var afterISO = oneSecondAfter.toISOString();
+    let now = new Date();
+    let oneSecondBefore = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
+    let nowISO = now.toISOString();
+    let beforeISO = oneSecondBefore.toISOString();
+    let afterISO = oneSecondAfter.toISOString();
 
     now.should.be.within(oneSecondBefore, oneSecondAfter);
     now.should.be.within(now, oneSecondAfter);
@@ -731,7 +745,7 @@ describe('should', function() {
     (new Map()).should.have.length.above(-1);
     (new Map()).should.have.lengthOf.above(-1);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -750,7 +764,7 @@ describe('should', function() {
     (new Set()).should.have.length.above(-1);
     (new Set()).should.have.lengthOf.above(-1);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -768,9 +782,9 @@ describe('should', function() {
   });
 
   it('above(n) (dates)', function(){
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
 
     now.should.be.above(oneSecondAgo);
     oneSecondAfter.should.be.greaterThan(now);
@@ -849,7 +863,7 @@ describe('should', function() {
     (new Map()).should.have.length.of.at.least(0);
     (new Map()).should.have.lengthOf.at.least(0);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -868,7 +882,7 @@ describe('should', function() {
     (new Set()).should.have.length.of.at.least(0);
     (new Set()).should.have.lengthOf.at.least(0);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -934,7 +948,7 @@ describe('should', function() {
     (new Map()).should.have.length.below(1);
     (new Map()).should.have.lengthOf.below(1);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -953,7 +967,7 @@ describe('should', function() {
     (new Set()).should.have.length.below(1);
     (new Set()).should.have.lengthOf.below(1);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -971,9 +985,9 @@ describe('should', function() {
   });
 
   it('below(n) (dates)', function(){
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
 
     now.should.be.below(oneSecondAfter);
     oneSecondAgo.should.be.lessThan(now);
@@ -1060,7 +1074,7 @@ describe('should', function() {
     (new Map()).should.have.length.of.at.most(0);
     (new Map()).should.have.lengthOf.at.most(0);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -1079,7 +1093,7 @@ describe('should', function() {
     (new Set()).should.have.length.of.at.most(0);
     (new Set()).should.have.lengthOf.at.most(0);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -1097,12 +1111,12 @@ describe('should', function() {
   });
 
   it('most(n) (dates)', function(){
-    var now = new Date();
-    var oneSecondBefore = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
-    var nowISO = now.toISOString();
-    var beforeISO = oneSecondBefore.toISOString();
-    var afterISO = oneSecondAfter.toISOString();
+    let now = new Date();
+    let oneSecondBefore = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
+    let nowISO = now.toISOString();
+    let beforeISO = oneSecondBefore.toISOString();
+    let afterISO = oneSecondAfter.toISOString();
 
     now.should.be.at.most(now);
     now.should.be.at.most(oneSecondAfter);
@@ -1189,7 +1203,7 @@ describe('should', function() {
     (new Map()).should.have.length(0);
     (new Map()).should.have.lengthOf(0);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
     map.set('c', 3);
@@ -1208,7 +1222,7 @@ describe('should', function() {
     (new Set()).should.have.length(0);
     (new Set()).should.have.lengthOf(0);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
     set.add(3);
@@ -1226,7 +1240,7 @@ describe('should', function() {
   });
 
   it('eql(val)', function(){
-    var a = new Date(1, 2, 3)
+    let a = new Date(1, 2, 3)
       , b = new Date(4, 5, 6);
 
     a.should.eql(a);
@@ -1246,7 +1260,7 @@ describe('should', function() {
     (1).should.eql(1);
     '4'.should.not.eql(4);
 
-    var sym = Symbol();
+    let sym = Symbol();
     sym.should.eql(sym);
 
     err(function(){
@@ -1258,7 +1272,7 @@ describe('should', function() {
     'test'.should.equal('test');
     (1).should.equal(1);
 
-    var sym = Symbol();
+    let sym = Symbol();
     sym.should.equal(sym);
 
     err(function(){
@@ -1284,6 +1298,9 @@ describe('should', function() {
   });
 
   it('empty', function(){
+    /**
+     *
+     */
     function FakeArgs() {};
     FakeArgs.prototype.length = 0;
 
@@ -1307,7 +1324,7 @@ describe('should', function() {
     (new Map()).should.be.empty;
 
     // Not using Map constructor args because not supported in IE 11.
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.should.not.be.empty;
 
@@ -1326,7 +1343,7 @@ describe('should', function() {
     (new Set()).should.be.empty;
 
     // Not using Set constructor args because not supported in IE 11.
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.should.not.be.empty;
 
@@ -1480,7 +1497,7 @@ describe('should', function() {
   });
 
   it('deep.property(name, val)', function () {
-    var obj = {a: {b: 1}};
+    let obj = {a: {b: 1}};
     obj.should.have.deep.property('a', {b: 1});
     obj.should.not.have.deep.property('a', {b: 7});
     obj.should.not.have.deep.property('a', {z: 1});
@@ -1518,7 +1535,7 @@ describe('should', function() {
     ({ length: 12 }).should.not.haveOwnProperty('iDontExist');
     ({ 1: 1 }).should.have.ownProperty(1);
 
-    var objNoHasOwnProperty = {hasOwnProperty: null};
+    let objNoHasOwnProperty = {hasOwnProperty: null};
     objNoHasOwnProperty.a = 'a';
     objNoHasOwnProperty.should.have.own.property('a');
     objNoHasOwnProperty.should.have.ownProperty('a');
@@ -1618,7 +1635,7 @@ describe('should', function() {
   });
 
   it('deep.own.property(name, val)', function () {
-    var obj = {a: {b: 1}};
+    let obj = {a: {b: 1}};
     obj.should.have.deep.own.property('a', {b: 1});
     obj.should.have.deep.ownProperty('a', {b: 1});
     obj.should.deep.haveOwnProperty('a', {b: 1});
@@ -1702,7 +1719,7 @@ describe('should', function() {
   });
 
   it('deep.nested.property(name, val)', function () {
-    var obj = {a: {b: {c: 1}}};
+    let obj = {a: {b: {c: 1}}};
     obj.should.have.deep.nested.property('a.b', {c: 1});
     obj.should.not.have.deep.nested.property('a.b', {c: 7});
     obj.should.not.have.deep.nested.property('a.b', {z: 1});
@@ -1728,9 +1745,9 @@ describe('should', function() {
 
     ({ 1: 1 }).should.have.ownPropertyDescriptor(1);
 
-    var obj = { },
+    let obj = { },
         obj2 = { };
-    var descriptor = {
+    let descriptor = {
       configurable: false,
       enumerable: true,
       writable: true,
@@ -1746,7 +1763,7 @@ describe('should', function() {
       obj.should.not.haveOwnPropertyDescriptor('test', descriptor, 'blah');
     }, /^blah: expected the own property descriptor for 'test' on \{ test: NaN \} to not match \{ [^\}]+ \}$/);
     err(function(){
-      var wrongDescriptor = {
+      let wrongDescriptor = {
         configurable: false,
         enumerable: true,
         writable: false,
@@ -1810,14 +1827,14 @@ describe('should', function() {
     // .include should work with Error objects and objects with a custom
     // `@@toStringTag`.
     (new Error('foo')).should.include({message: 'foo'});
-    var customObj = {a: 1};
+    let customObj = {a: 1};
     customObj[Symbol.toStringTag] = 'foo';
 
     customObj.should.include({a: 1});
 
     ({a: 1}).should.include({'toString': Object.prototype.toString});
 
-    var obj1 = {a: 1}
+    let obj1 = {a: 1}
       , obj2 = {b: 2};
     [obj1, obj2].should.include(obj1);
     [obj1, obj2].should.not.include({a: 1});
@@ -1826,7 +1843,7 @@ describe('should', function() {
     ({foo: obj1, bar: obj2}).should.not.include({foo: {a: 1}});
     ({foo: obj1, bar: obj2}).should.not.include({foo: obj1, bar: {b: 2}});
 
-    var map = new Map();
+    let map = new Map();
     var val = [{a: 1}];
     map.set('a', val);
     map.set('b', 2);
@@ -1840,7 +1857,7 @@ describe('should', function() {
     map.should.include(0);
     map.should.include(NaN);
 
-    var set = new Set();
+    let set = new Set();
     var val = [{a: 1}];
     set.add(val);
     set.add(2);
@@ -1858,7 +1875,7 @@ describe('should', function() {
     }
     set.should.include(NaN);
 
-    var ws = new WeakSet();
+    let ws = new WeakSet();
     var val = [{a: 1}];
     ws.add(val);
 
@@ -1866,7 +1883,7 @@ describe('should', function() {
     ws.should.not.include([{a: 1}]);
     ws.should.not.include({});
 
-    var sym1 = Symbol()
+    let sym1 = Symbol()
     , sym2 = Symbol()
     , sym3 = Symbol();
     [sym1, sym2].should.include(sym1);
@@ -1889,7 +1906,7 @@ describe('should', function() {
     }, "expected [ { a: 1 }, { b: 2 } ] to include { a: 1 }");
 
     err(function () {
-      var obj1 = {a: 1}
+      let obj1 = {a: 1}
         , obj2 = {b: 2};
       [obj1, obj2].should.not.include(obj1);
     }, "expected [ { a: 1 }, { b: 2 } ] to not include { a: 1 }");
@@ -1899,7 +1916,7 @@ describe('should', function() {
     }, "expected { foo: { a: 1 }, bar: { b: 2 } } to have property 'foo' of { a: 1 }, but got { a: 1 }");
 
     err(function () {
-      var obj1 = {a: 1}
+      let obj1 = {a: 1}
         , obj2 = {b: 2};
       ({foo: obj1, bar: obj2}).should.not.include({foo: obj1, bar: obj2});
     }, "expected { foo: { a: 1 }, bar: { b: 2 } } to not have property 'foo' of { a: 1 }");
@@ -1934,7 +1951,7 @@ describe('should', function() {
   });
 
   it('deep.include()', function () {
-    var obj1 = {a: 1}
+    let obj1 = {a: 1}
       , obj2 = {b: 2};
     [obj1, obj2].should.deep.include({a: 1});
     [obj1, obj2].should.not.deep.include({a: 9});
@@ -1946,12 +1963,12 @@ describe('should', function() {
     ({foo: obj1, bar: obj2}).should.not.deep.include({baz: {a: 1}});
     ({foo: obj1, bar: obj2}).should.not.deep.include({foo: {a: 1}, bar: {b: 9}});
 
-    var map = new Map();
+    let map = new Map();
 
     map.set(1, [{a: 1}]);
     map.should.deep.include([{a: 1}]);
 
-    var set = new Set();
+    let set = new Set();
 
     set.add([{a: 1}]);
     set.should.deep.include([{a: 1}]);
@@ -2210,7 +2227,7 @@ describe('should', function() {
       testMap.should.not.have.any.deep.keys([{13: 37}, 'thisDoesNotExist', 'thisToo']);
       testMap.should.not.have.any.deep.keys([20, 1, {13: 37}]);
 
-      var weirdMapKey1 = Object.create(null)
+      let weirdMapKey1 = Object.create(null)
         , weirdMapKey2 = {toString: NaN}
         , weirdMapKey3 = []
         , weirdMap = new Map();
@@ -2221,7 +2238,7 @@ describe('should', function() {
       weirdMap.should.have.all.keys([weirdMapKey1, weirdMapKey2]);
       weirdMap.should.not.have.all.keys([weirdMapKey1, weirdMapKey3]);
 
-        var symMapKey1 = Symbol()
+        let symMapKey1 = Symbol()
           , symMapKey2 = Symbol()
           , symMapKey3 = Symbol()
           , symMap = new Map();
@@ -2239,7 +2256,7 @@ describe('should', function() {
         symMap.should.not.contain.all.keys(symMapKey3, symMapKey1);
         symMap.should.not.contain.any.keys(symMapKey3);
 
-      var errMap = new Map();
+      let errMap = new Map();
 
       errMap.set({ foo: 1 });
 
@@ -2337,7 +2354,7 @@ describe('should', function() {
       testSet.should.not.have.any.deep.keys([20, 1, {13: 37}]);
       testSet.should.not.have.all.deep.keys([{thisIs: 'anExampleObject'}, {'iDoNot': 'exist'}])
 
-      var weirdSetKey1 = Object.create(null)
+      let weirdSetKey1 = Object.create(null)
         , weirdSetKey2 = {toString: NaN}
         , weirdSetKey3 = []
         , weirdSet = new Set();
@@ -2348,7 +2365,7 @@ describe('should', function() {
       weirdSet.should.have.all.keys([weirdSetKey1, weirdSetKey2]);
       weirdSet.should.not.have.all.keys([weirdSetKey1, weirdSetKey3]);
 
-    var symSetKey1 = Symbol()
+    let symSetKey1 = Symbol()
     , symSetKey2 = Symbol()
     , symSetKey3 = Symbol()
     , symSet = new Set();
@@ -2366,7 +2383,7 @@ describe('should', function() {
     symSet.should.not.contain.all.keys(symSetKey3, symSetKey1);
     symSet.should.not.contain.any.keys(symSetKey3);
 
-    var errSet = new Set();
+    let errSet = new Set();
 
     errSet.add({ foo: 1 });
 
@@ -2410,7 +2427,7 @@ describe('should', function() {
       ({ foo: 1 }).should.contain.keys([]);
     }, "keys required");
 
-    var mixedArgsMsg = 'when testing keys against an object or an array you must give a single Array|Object|String argument or multiple String arguments'
+    let mixedArgsMsg = 'when testing keys against an object or an array you must give a single Array|Object|String argument or multiple String arguments'
 
     err(function(){
       ({}).should.contain.keys(['a'], "b");
@@ -2512,9 +2529,9 @@ describe('should', function() {
   });
 
   it('keys(array) will not mutate array (#359)', function () {
-      var expected = [ 'b', 'a' ];
-      var original_order = [ 'b', 'a' ];
-      var obj = { "b": 1, "a": 1 };
+      let expected = [ 'b', 'a' ];
+      let original_order = [ 'b', 'a' ];
+      let obj = { "b": 1, "a": 1 };
       expected.should.deep.equal(original_order);
       obj.should.keys(original_order);
       expected.should.deep.equal(original_order);
@@ -2524,20 +2541,24 @@ describe('should', function() {
     // See GH-45: some poorly-constructed custom errors don't have useful names
     // on either their constructor or their constructor prototype, but instead
     // only set the name inside the constructor itself.
-    var PoorlyConstructedError = function () {
+    let PoorlyConstructedError = function () {
       this.name = 'PoorlyConstructedError';
     };
     PoorlyConstructedError.prototype = Object.create(Error.prototype);
 
+    /**
+     *
+     * @param message
+     */
     function CustomError(message) {
         this.name = 'CustomError';
         this.message = message;
     }
     CustomError.prototype = Error.prototype;
 
-    var specificError = new RangeError('boo');
+    let specificError = new RangeError('boo');
 
-    var goodFn = function () { 1==1; }
+    let goodFn = function () { 1==1; }
       , badFn = function () { throw new Error('testing'); }
       , stringErrFn = function () { throw 'testing'; }
       , refErrFn = function () { throw new ReferenceError('hello'); }
@@ -2712,11 +2733,14 @@ describe('should', function() {
   });
 
   it('respondTo', function(){
+    /**
+     *
+     */
     function Foo(){};
     Foo.prototype.bar = function(){};
     Foo.func = function(){};
 
-    var bar = {};
+    let bar = {};
     bar.foo = function(){};
 
     Foo.should.respondTo('bar');
@@ -2736,7 +2760,7 @@ describe('should', function() {
   });
 
   it('satisfy', function(){
-    var matcher = function (num){
+    let matcher = function (num){
       return num === 1;
     };
 
@@ -2970,7 +2994,7 @@ describe('should', function() {
   })
 
   it('change', function() {
-    var obj = { value: 10, str: 'foo' },
+    let obj = { value: 10, str: 'foo' },
         heroes = ['spiderman', 'superman'],
         fn     = function() { obj.value += 5 },
         sameFn = function() { obj.value += 0 },
@@ -3025,7 +3049,7 @@ describe('should', function() {
   });
 
   it('increase, decrease', function() {
-    var obj = { value: 10, noop: null },
+    let obj = { value: 10, noop: null },
         arr = ['one', 'two'],
         pFn   = function() { arr.push('three') },
         popFn = function() { arr.pop() },
@@ -3120,7 +3144,7 @@ describe('should', function() {
   });
 
   it('extensible', function() {
-     var nonExtensibleObject = Object.preventExtensions({});
+     let nonExtensibleObject = Object.preventExtensions({});
 
      ({}).should.be.extensible;
      nonExtensibleObject.should.not.be.extensible;
@@ -3153,7 +3177,7 @@ describe('should', function() {
        false.should.be.extensible;
      }, 'expected false to be extensible');
 
-    var proxy = new Proxy({}, {
+    let proxy = new Proxy({}, {
       isExtensible: function() {
         throw new TypeError();
       }
@@ -3166,7 +3190,7 @@ describe('should', function() {
   });
 
   it('sealed', function() {
-    var sealedObject = Object.seal({});
+    let sealedObject = Object.seal({});
 
     sealedObject.should.be.sealed;
     ({}).should.not.be.sealed;
@@ -3199,7 +3223,7 @@ describe('should', function() {
       false.should.not.be.sealed;
     }, 'expected false to not be sealed');
 
-    var proxy = new Proxy({}, {
+    let proxy = new Proxy({}, {
       ownKeys: function() {
         throw new TypeError();
       }
@@ -3215,7 +3239,7 @@ describe('should', function() {
   });
 
   it('frozen', function() {
-    var frozenObject = Object.freeze({});
+    let frozenObject = Object.freeze({});
 
     frozenObject.should.be.frozen;
     ({}).should.not.be.frozen;
@@ -3248,7 +3272,7 @@ describe('should', function() {
       false.should.not.be.frozen;
     }, 'expected false to not be frozen');
 
-    var proxy = new Proxy({}, {
+    let proxy = new Proxy({}, {
       ownKeys: function() {
         throw new TypeError();
       }

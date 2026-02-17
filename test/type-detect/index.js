@@ -1,5 +1,10 @@
 import * as chai from '../../index.js';
 
+/**
+ *
+ * @param expr
+ * @param msg
+ */
 function assert (expr, msg) {
   if (!expr) {
     throw new Error(msg || 'Assertion Failed');
@@ -64,6 +69,9 @@ describe('Generic', () => {
   });
 
   it('object', () => {
+    /**
+     *
+     */
     function Noop() {}
     assert(type({}) === 'Object');
     assert(type(Noop) !== 'Object');
@@ -115,12 +123,19 @@ describe('Generic', () => {
 
   describe('Stubbed ES2015 Types', () => {
     const originalObjectToString = Object.prototype.toString;
+    /**
+     *
+     * @param staticValue
+     */
     function stubObjectToStringOnce(staticValue) {
-      Object.prototype.toString = function () { // eslint-disable-line no-extend-native
-        Object.prototype.toString = originalObjectToString; // eslint-disable-line no-extend-native
+      Object.prototype.toString = function () {  
+        Object.prototype.toString = originalObjectToString;  
         return staticValue;
       };
     }
+    /**
+     *
+     */
     function Thing() {}
 
     it('map', () => {
@@ -253,7 +268,7 @@ describe('Generic', () => {
         return 'foo';
       };
       if (Object.prototype.toString(test) !== '[object foo]') {
-        Object.prototype.toString = function () { // eslint-disable-line no-extend-native
+        Object.prototype.toString = function () {  
           if (typeof this === 'object' && typeof this[Symbol.toStringTag] === 'function') {
             return `[object ${ this[Symbol.toStringTag]() }]`;
           }
@@ -263,7 +278,7 @@ describe('Generic', () => {
     });
 
     after(() => {
-      Object.prototype.toString = originalObjectToString; // eslint-disable-line no-extend-native
+      Object.prototype.toString = originalObjectToString;  
     });
 
     it('plain object', () => {

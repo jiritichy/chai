@@ -5,7 +5,7 @@ describe('assert', function () {
   const {assert} = chai;
 
   it('assert', function () {
-    var foo = 'bar';
+    let foo = 'bar';
     assert(foo == 'bar', "expected foo to equal `bar`");
 
     err(function () {
@@ -122,10 +122,10 @@ describe('assert', function () {
   });
 
   it('equal', function () {
-    var foo;
+    let foo;
     assert.equal(foo, undefined);
 
-    var sym = Symbol();
+    let sym = Symbol();
     assert.equal(sym, sym);
 
     err(function () {
@@ -194,6 +194,9 @@ describe('assert', function () {
   });
 
   it('instanceOf', function() {
+    /**
+     *
+     */
     function Foo(){}
     assert.instanceOf(new Foo(), Foo);
 
@@ -233,8 +236,11 @@ describe('assert', function () {
     }, "The instanceof assertion needs a constructor but undefined was given.");
 
     err(function(){
+      /**
+       *
+       */
       function Thing(){};
-      var t = new Thing();
+      let t = new Thing();
       Thing.prototype = 1337;
       assert.instanceOf(t, Thing);
     }, 'The instanceof assertion needs a constructor but Function was given.', true);
@@ -244,8 +250,8 @@ describe('assert', function () {
     }, "The instanceof assertion needs a constructor but Symbol was given.");
 
     err(function() {
-        var FakeConstructor = {};
-        var fakeInstanceB = 4;
+        let FakeConstructor = {};
+        let fakeInstanceB = 4;
         FakeConstructor[Symbol.hasInstance] = function (val) {
             return val === 3;
         };
@@ -257,6 +263,9 @@ describe('assert', function () {
       assert.instanceOf(5, Foo, 'blah');
     }, "blah: expected 5 to be an instance of Foo");
 
+    /**
+     *
+     */
     function CrashyObject() {};
     CrashyObject.prototype.inspect = function () {
       throw new Error("Arg's inspect() called even though the test passed");
@@ -265,6 +274,9 @@ describe('assert', function () {
   });
 
   it('notInstanceOf', function () {
+    /**
+     *
+     */
     function Foo(){}
     assert.notInstanceOf(new Foo(), String);
 
@@ -297,8 +309,8 @@ describe('assert', function () {
     }, "The instanceof assertion needs a constructor but Symbol was given.");
 
     err(function() {
-        var FakeConstructor = {};
-        var fakeInstanceB = 4;
+        let FakeConstructor = {};
+        let fakeInstanceB = 4;
         FakeConstructor[Symbol.hasInstance] = function (val) {
             return val === 4;
         };
@@ -312,6 +324,9 @@ describe('assert', function () {
   });
 
   it('isObject', function () {
+    /**
+     *
+     */
     function Foo(){}
     assert.isObject({});
     assert.isObject(new Foo());
@@ -330,6 +345,9 @@ describe('assert', function () {
   });
 
   it('isNotObject', function () {
+    /**
+     *
+     */
     function Foo(){}
     assert.isNotObject(5);
 
@@ -341,7 +359,7 @@ describe('assert', function () {
   it('notEqual', function() {
     assert.notEqual(3, 4);
 
-    var sym1 = Symbol()
+    let sym1 = Symbol()
       , sym2 = Symbol();
     assert.notEqual(sym1, sym2);
 
@@ -353,7 +371,7 @@ describe('assert', function () {
   it('strictEqual', function() {
     assert.strictEqual('foo', 'foo');
 
-    var sym = Symbol();
+    let sym = Symbol();
     assert.strictEqual(sym, sym);
 
     err(function () {
@@ -364,7 +382,7 @@ describe('assert', function () {
   it('notStrictEqual', function() {
     assert.notStrictEqual(5, '5');
 
-    var sym1 = Symbol()
+    let sym1 = Symbol()
       , sym2 = Symbol();
     assert.notStrictEqual(sym1, sym2);
 
@@ -384,12 +402,12 @@ describe('assert', function () {
       assert.deepEqual({tea: 'chai'}, {tea: 'black'}, 'blah');
     }, "blah: expected { tea: 'chai' } to deeply equal { tea: 'black' }");
 
-    var obja = Object.create({ tea: 'chai' })
+    let obja = Object.create({ tea: 'chai' })
       , objb = Object.create({ tea: 'chai' });
 
     assert.deepEqual(obja, objb);
 
-    var obj1 = Object.create({tea: 'chai'})
+    let obj1 = Object.create({tea: 'chai'})
       , obj2 = Object.create({tea: 'black'});
 
     err(function () {
@@ -398,7 +416,7 @@ describe('assert', function () {
   });
 
   it('deepEqual (ordering)', function() {
-    var a = { a: 'b', c: 'd' }
+    let a = { a: 'b', c: 'd' }
       , b = { c: 'd', a: 'b' };
     assert.deepEqual(a, b);
   });
@@ -416,7 +434,7 @@ describe('assert', function () {
   });
 
   it('deepEqual (Date)', function() {
-    var a = new Date(1, 2, 3)
+    let a = new Date(1, 2, 3)
       , b = new Date(4, 5, 6);
     assert.deepEqual(a, a);
     assert.notDeepEqual(a, b);
@@ -424,7 +442,7 @@ describe('assert', function () {
   });
 
   it('deepEqual (circular)', function() {
-    var circularObject = {}
+    let circularObject = {}
       , secondCircularObject = {};
     circularObject.field = circularObject;
     secondCircularObject.field = secondCircularObject;
@@ -446,7 +464,7 @@ describe('assert', function () {
   });
 
   it('notDeepEqual (circular)', function() {
-    var circularObject = {}
+    let circularObject = {}
       , secondCircularObject = { tea: 'jasmine' };
     circularObject.field = circularObject;
     secondCircularObject.field = secondCircularObject;
@@ -507,8 +525,8 @@ describe('assert', function () {
   });
 
   it('exists', function() {
-    var meeber = 'awesome';
-    var iDoNotExist;
+    let meeber = 'awesome';
+    let iDoNotExist;
 
     assert.exists(meeber);
     assert.exists(0);
@@ -521,8 +539,8 @@ describe('assert', function () {
   });
 
   it('notExists', function() {
-    var meeber = 'awesome';
-    var iDoNotExist;
+    let meeber = 'awesome';
+    let iDoNotExist;
 
     assert.notExists(iDoNotExist);
 
@@ -576,7 +594,7 @@ describe('assert', function () {
   });
 
   it('isFunction', function() {
-    var func = function() {};
+    let func = function() {};
     assert.isFunction(func);
 
     err(function () {
@@ -724,18 +742,18 @@ describe('assert', function () {
     // .include should work with Error objects and objects with a custom
     // `@@toStringTag`.
     assert.include(new Error('foo'), {message: 'foo'});
-    var customObj = {a: 1};
+    let customObj = {a: 1};
     customObj[Symbol.toStringTag] = 'foo';
 
     assert.include(customObj, {a: 1});
 
-    var obj1 = {a: 1}
+    let obj1 = {a: 1}
       , obj2 = {b: 2};
     assert.include([obj1, obj2], obj1);
     assert.include({foo: obj1, bar: obj2}, {foo: obj1});
     assert.include({foo: obj1, bar: obj2}, {foo: obj1, bar: obj2});
 
-    var map = new Map();
+    let map = new Map();
     var val = [{a: 1}];
     map.set('a', val);
     map.set('b', 2);
@@ -748,7 +766,7 @@ describe('assert', function () {
     assert.include(map, NaN);
 
     var val = [{a: 1}];
-    var set = new Set();
+    let set = new Set();
     set.add(val);
     set.add(2);
     set.add(-0);
@@ -759,13 +777,13 @@ describe('assert', function () {
     assert.include(set, 0);
     assert.include(set, NaN);
 
-    var ws = new WeakSet();
+    let ws = new WeakSet();
     var val = [{a: 1}];
     ws.add(val);
 
     assert.include(ws, val);
 
-    var sym1 = Symbol()
+    let sym1 = Symbol()
       , sym2 = Symbol();
     assert.include([sym1, sym2], sym1);
 
@@ -814,13 +832,13 @@ describe('assert', function () {
     assert.notInclude('foobar', 'baz');
     assert.notInclude([ 1, 2, 3 ], 4);
 
-    var obj1 = {a: 1}
+    let obj1 = {a: 1}
       , obj2 = {b: 2};
     assert.notInclude([obj1, obj2], {a: 1});
     assert.notInclude({foo: obj1, bar: obj2}, {foo: {a: 1}});
     assert.notInclude({foo: obj1, bar: obj2}, {foo: obj1, bar: {b: 2}});
 
-    var map = new Map();
+    let map = new Map();
     var val = [{a: 1}];
     map.set('a', val);
     map.set('b', 2);
@@ -828,7 +846,7 @@ describe('assert', function () {
     assert.notInclude(map, [{a: 1}]);
     assert.notInclude(map, 3);
 
-    var set = new Set();
+    let set = new Set();
     var val = [{a: 1}];
     set.add(val);
     set.add(2);
@@ -839,26 +857,26 @@ describe('assert', function () {
     assert.notInclude(set, [{a: 1}]);
     assert.notInclude(set, 3);
 
-    var ws = new WeakSet();
+    let ws = new WeakSet();
     var val = [{a: 1}];
     ws.add(val);
 
     assert.notInclude(ws, [{a: 1}]);
     assert.notInclude(ws, {});
 
-    var sym1 = Symbol()
+    let sym1 = Symbol()
       , sym2 = Symbol()
       , sym3 = Symbol();
     assert.notInclude([sym1, sym2], sym3);
 
     err(function () {
-      var obj1 = {a: 1}
+      let obj1 = {a: 1}
         , obj2 = {b: 2};
       assert.notInclude([obj1, obj2], obj1, 'blah');
     }, "blah: expected [ { a: 1 }, { b: 2 } ] to not include { a: 1 }");
 
     err(function () {
-      var obj1 = {a: 1}
+      let obj1 = {a: 1}
         , obj2 = {b: 2};
       assert.notInclude({foo: obj1, bar: obj2}, {foo: obj1, bar: obj2}, 'blah');
     }, "blah: expected { foo: { a: 1 }, bar: { b: 2 } } to not have property 'foo' of { a: 1 }");
@@ -897,7 +915,7 @@ describe('assert', function () {
   });
 
   it('deepInclude and notDeepInclude', function () {
-    var obj1 = {a: 1}
+    let obj1 = {a: 1}
       , obj2 = {b: 2};
     assert.deepInclude([obj1, obj2], {a: 1});
     assert.notDeepInclude([obj1, obj2], {a: 9});
@@ -909,12 +927,12 @@ describe('assert', function () {
     assert.notDeepInclude({foo: obj1, bar: obj2}, {baz: {a: 1}});
     assert.notDeepInclude({foo: obj1, bar: obj2}, {foo: {a: 1}, bar: {b: 9}});
 
-    var map = new Map();
+    let map = new Map();
     map.set(1, [{a: 1}]);
 
     assert.deepInclude(map, [{a: 1}]);
 
-    var set = new Set();
+    let set = new Set();
     set.add([{a: 1}]);
 
     assert.deepInclude(set, [{a: 1}]);
@@ -1165,7 +1183,7 @@ describe('assert', function () {
     assert.doesNotHaveAllDeepKeys(testMap, {thisDoesNot: 'exist'});
     assert.doesNotHaveAllDeepKeys(testMap, [{twenty: 'twenty'}, {thisIs: 'anExampleObject'}]);
 
-    var weirdMapKey1 = Object.create(null)
+    let weirdMapKey1 = Object.create(null)
       , weirdMapKey2 = {toString: NaN}
       , weirdMapKey3 = []
       , weirdMap = new Map();
@@ -1176,7 +1194,7 @@ describe('assert', function () {
     assert.hasAllKeys(weirdMap, [weirdMapKey1, weirdMapKey2]);
     assert.doesNotHaveAllKeys(weirdMap, [weirdMapKey1, weirdMapKey3]);
 
-    var symMapKey1 = Symbol()
+    let symMapKey1 = Symbol()
       , symMapKey2 = Symbol()
       , symMapKey3 = Symbol()
       , symMap = new Map();
@@ -1191,7 +1209,7 @@ describe('assert', function () {
     assert.doesNotHaveAllKeys(symMap, [symMapKey1, symMapKey3]);
     assert.doesNotHaveAnyKeys(symMap, [symMapKey3]);
 
-    var errMap = new Map();
+    let errMap = new Map();
 
     errMap.set({1: 20}, 'number');
 
@@ -1279,7 +1297,7 @@ describe('assert', function () {
     assert.doesNotHaveAllDeepKeys(testSet, {twenty: 'twenty'});
     assert.doesNotHaveAllDeepKeys(testSet, [{thisIs: 'anExampleObject'}, {fifty: 'fifty'}]);
 
-    var weirdSetKey1 = Object.create(null)
+    let weirdSetKey1 = Object.create(null)
       , weirdSetKey2 = {toString: NaN}
       , weirdSetKey3 = []
       , weirdSet = new Set();
@@ -1290,7 +1308,7 @@ describe('assert', function () {
     assert.hasAllKeys(weirdSet, [weirdSetKey1, weirdSetKey2]);
     assert.doesNotHaveAllKeys(weirdSet, [weirdSetKey1, weirdSetKey3]);
 
-    var symSetKey1 = Symbol()
+    let symSetKey1 = Symbol()
       , symSetKey2 = Symbol()
       , symSetKey3 = Symbol()
       , symSet = new Set();
@@ -1305,7 +1323,7 @@ describe('assert', function () {
     assert.doesNotHaveAllKeys(symSet, [symSetKey1, symSetKey3]);
     assert.doesNotHaveAnyKeys(symSet, [symSetKey3]);
 
-    var errSet = new Set();
+    let errSet = new Set();
 
     errSet.add({1: 20});
     errSet.add('number');
@@ -1452,7 +1470,7 @@ describe('assert', function () {
 
     assert.lengthOf(new Map(), 0);
 
-    var map = new Map();
+    let map = new Map();
     map.set('a', 1);
     map.set('b', 2);
 
@@ -1464,7 +1482,7 @@ describe('assert', function () {
 
     assert.lengthOf(new Set(), 0);
 
-    var set = new Set();
+    let set = new Set();
     set.add(1);
     set.add(2);
 
@@ -1489,10 +1507,10 @@ describe('assert', function () {
   });
 
   it('property', function () {
-    var obj = { foo: { bar: 'baz' } };
-    var simpleObj = { foo: 'bar' };
-    var undefinedKeyObj = { foo: undefined };
-    var dummyObj = { a: '1' };
+    let obj = { foo: { bar: 'baz' } };
+    let simpleObj = { foo: 'bar' };
+    let undefinedKeyObj = { foo: undefined };
+    let dummyObj = { a: '1' };
     assert.property(obj, 'foo');
     assert.property(obj, 'toString');
     assert.propertyVal(obj, 'toString', Object.prototype.toString);
@@ -1567,7 +1585,7 @@ describe('assert', function () {
   });
 
   it('deepPropertyVal', function () {
-    var obj = {a: {b: 1}};
+    let obj = {a: {b: 1}};
     assert.deepPropertyVal(obj, 'a', {b: 1});
     assert.notDeepPropertyVal(obj, 'a', {b: 7});
     assert.notDeepPropertyVal(obj, 'a', {z: 1});
@@ -1587,10 +1605,10 @@ describe('assert', function () {
   });
 
   it('ownProperty', function() {
-    var coffeeObj = { coffee: 'is good' };
+    let coffeeObj = { coffee: 'is good' };
 
     // This has length = 17
-    var teaObj = 'but tea is better';
+    let teaObj = 'but tea is better';
 
     assert.ownProperty(coffeeObj, 'coffee');
     assert.ownProperty(teaObj, 'length');
@@ -1633,7 +1651,7 @@ describe('assert', function () {
   });
 
   it('deepOwnPropertyVal', function () {
-    var obj = {a: {b: 1}};
+    let obj = {a: {b: 1}};
     assert.deepOwnPropertyVal(obj, 'a', {b: 1});
     assert.notDeepOwnPropertyVal(obj, 'a', {z: 1});
     assert.notDeepOwnPropertyVal(obj, 'a', {b: 7});
@@ -1653,7 +1671,7 @@ describe('assert', function () {
   });
 
   it('deepNestedPropertyVal', function () {
-    var obj = {a: {b: {c: 1}}};
+    let obj = {a: {b: {c: 1}}};
     assert.deepNestedPropertyVal(obj, 'a.b', {c: 1});
     assert.notDeepNestedPropertyVal(obj, 'a.b', {c: 7});
     assert.notDeepNestedPropertyVal(obj, 'a.b', {z: 1});
@@ -1691,7 +1709,7 @@ describe('assert', function () {
       assert[throws](function() { throw new CustomError('foo'); });
       assert[throws](function() { throw (() => {}); });
 
-      var thrownErr = assert[throws](function() { throw new Error('foo'); });
+      let thrownErr = assert[throws](function() { throw new Error('foo'); });
       assert(thrownErr instanceof Error, 'assert.' + throws + ' returns error');
       assert(thrownErr.message === 'foo', 'assert.' + throws + ' returns error message');
 
@@ -1734,6 +1752,10 @@ describe('assert', function () {
   });
 
   it('doesNotThrow', function() {
+    /**
+     *
+     * @param message
+     */
     function CustomError(message) {
         this.name = 'CustomError';
         this.message = message;
@@ -1827,14 +1849,14 @@ describe('assert', function () {
     assert.ifError(undefined);
 
     err(function () {
-      var err = new Error('This is an error message');
+      let err = new Error('This is an error message');
       assert.ifError(err);
      }, 'This is an error message');
   });
 
   it('operator', function() {
     // For testing undefined and null with == and ===
-    var w;
+    let w;
 
     assert.operator(1, '<', 2);
     assert.operator(2, '>', 1);
@@ -2154,10 +2176,10 @@ describe('assert', function () {
   it('oneOf', function() {
     assert.oneOf(1, [1, 2, 3]);
 
-    var three = [3];
+    let three = [3];
     assert.oneOf(three, [1, 2, three]);
 
-    var four = { four: 4 };
+    let four = { four: 4 };
     assert.oneOf(four, [1, 2, four]);
 
     err(function() {
@@ -2206,8 +2228,8 @@ describe('assert', function () {
   });
 
   it('above (dates)', function() {
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
     assert.isAbove(now, oneSecondAgo, 'Now should be above 1 second ago');
 
     err(function() {
@@ -2255,9 +2277,9 @@ describe('assert', function () {
   });
 
   it('atLeast (dates)', function() {
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
 
     assert.isAtLeast(now, oneSecondAgo, 'Now should be above one second ago');
     assert.isAtLeast(now, now, 'Now should be equal to now');
@@ -2307,8 +2329,8 @@ describe('assert', function () {
   });
 
   it('below (dates)', function() {
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
     assert.isBelow(oneSecondAgo, now, 'One second ago should be below now');
 
     err(function() {
@@ -2356,9 +2378,9 @@ describe('assert', function () {
   });
 
   it('atMost (dates)', function() {
-    var now = new Date();
-    var oneSecondAgo = new Date(now.getTime() - 1000);
-    var oneSecondAfter = new Date(now.getTime() + 1000);
+    let now = new Date();
+    let oneSecondAgo = new Date(now.getTime() - 1000);
+    let oneSecondAfter = new Date(now.getTime() + 1000);
 
     assert.isAtMost(oneSecondAgo, now, 'Now should be below one second ago');
     assert.isAtMost(now, now, 'Now should be equal to now');
@@ -2412,7 +2434,7 @@ describe('assert', function () {
   });
 
   it('change', function() {
-    var obj = { value: 10, str: 'foo' },
+    let obj = { value: 10, str: 'foo' },
         heroes = ['spiderman', 'superman'],
         fn     = function() { obj.value += 5 },
         fnDec  = function() { obj.value -= 20 },
@@ -2465,7 +2487,7 @@ describe('assert', function () {
   });
 
   it('increase, decrease', function() {
-    var obj = { value: 10, noop: null },
+    let obj = { value: 10, noop: null },
         arr = ['one', 'two'],
         pFn   = function() { arr.push('three') },
         popFn = function() { arr.pop() },
@@ -2562,7 +2584,7 @@ describe('assert', function () {
 
   it('isExtensible / extensible', function() {
     ['isExtensible', 'extensible'].forEach(function (isExtensible) {
-      var nonExtensibleObject = Object.preventExtensions({});
+      let nonExtensibleObject = Object.preventExtensions({});
 
       assert[isExtensible]({});
 
@@ -2592,7 +2614,7 @@ describe('assert', function () {
         assert[isExtensible](undefined);
       }, 'expected undefined to be extensible');
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         isExtensible: function() {
           throw new TypeError();
         }
@@ -2607,7 +2629,7 @@ describe('assert', function () {
 
   it('isNotExtensible / notExtensible', function() {
     ['isNotExtensible', 'notExtensible'].forEach(function (isNotExtensible) {
-      var nonExtensibleObject = Object.preventExtensions({});
+      let nonExtensibleObject = Object.preventExtensions({});
 
       assert[isNotExtensible](nonExtensibleObject);
 
@@ -2624,7 +2646,7 @@ describe('assert', function () {
       assert[isNotExtensible](undefined);
       assert[isNotExtensible](Symbol());
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         isExtensible: function() {
           throw new TypeError();
         }
@@ -2639,7 +2661,7 @@ describe('assert', function () {
 
   it('isSealed / sealed', function() {
     ['isSealed', 'sealed'].forEach(function (isSealed) {
-      var sealedObject = Object.seal({});
+      let sealedObject = Object.seal({});
 
       assert[isSealed](sealedObject);
 
@@ -2656,7 +2678,7 @@ describe('assert', function () {
       assert[isSealed](undefined);
       assert[isSealed](Symbol());
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         ownKeys: function() {
           throw new TypeError();
         }
@@ -2674,7 +2696,7 @@ describe('assert', function () {
 
   it('isNotSealed / notSealed', function() {
     ['isNotSealed', 'notSealed'].forEach(function (isNotSealed) {
-      var sealedObject = Object.seal({});
+      let sealedObject = Object.seal({});
 
       assert[isNotSealed]({});
 
@@ -2704,7 +2726,7 @@ describe('assert', function () {
         assert[isNotSealed](undefined);
       }, 'expected undefined to not be sealed');
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         ownKeys: function() {
           throw new TypeError();
         }
@@ -2722,7 +2744,7 @@ describe('assert', function () {
 
   it('isFrozen / frozen', function() {
     ['isFrozen', 'frozen'].forEach(function (isFrozen) {
-      var frozenObject = Object.freeze({});
+      let frozenObject = Object.freeze({});
 
       assert[isFrozen](frozenObject);
 
@@ -2739,7 +2761,7 @@ describe('assert', function () {
       assert[isFrozen](undefined);
       assert[isFrozen](Symbol());
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         ownKeys: function() {
           throw new TypeError();
         }
@@ -2757,7 +2779,7 @@ describe('assert', function () {
 
   it('isNotFrozen / notFrozen', function() {
     ['isNotFrozen', 'notFrozen'].forEach(function (isNotFrozen) {
-      var frozenObject = Object.freeze({});
+      let frozenObject = Object.freeze({});
 
       assert[isNotFrozen]({});
 
@@ -2787,7 +2809,7 @@ describe('assert', function () {
         assert[isNotFrozen](undefined);
       }, 'expected undefined to not be frozen');
 
-      var proxy = new Proxy({}, {
+      let proxy = new Proxy({}, {
         ownKeys: function() {
           throw new TypeError();
         }
@@ -2805,6 +2827,9 @@ describe('assert', function () {
 
   it('isEmpty / empty', function() {
     ['isEmpty', 'empty'].forEach(function (isEmpty) {
+      /**
+       *
+       */
       function FakeArgs() {};
       FakeArgs.prototype.length = 0;
 
@@ -2823,12 +2848,12 @@ describe('assert', function () {
 
       assert[isEmpty](new Map());
 
-      var map = new Map();
+      let map = new Map();
       map.key = 'val';
       assert[isEmpty](map);
       assert[isEmpty](new Set());
 
-      var set = new Set();
+      let set = new Set();
       set.key = 'val';
       assert[isEmpty](set);
 
@@ -2898,6 +2923,9 @@ describe('assert', function () {
 
   it('isNotEmpty / notEmpty', function() {
     ['isNotEmpty', 'notEmpty'].forEach(function (isNotEmpty) {
+      /**
+       *
+       */
       function FakeArgs() {};
       FakeArgs.prototype.length = 0;
 
@@ -2914,7 +2942,7 @@ describe('assert', function () {
         assert[isNotEmpty](new WeakSet(), 'blah');
       }, "blah: .empty was passed a weak collection");
 
-      var map = new Map();
+      let map = new Map();
       map.set('a', 1);
       assert[isNotEmpty](map);
 
@@ -2922,7 +2950,7 @@ describe('assert', function () {
         assert[isNotEmpty](new Map());
       }, "expected Map{} not to be empty");
 
-      var set = new Set();
+      let set = new Set();
       set.add(1);
       assert[isNotEmpty](set);
 

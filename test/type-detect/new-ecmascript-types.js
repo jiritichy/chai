@@ -1,5 +1,10 @@
 import * as chai from '../../index.js';
 
+/**
+ *
+ * @param expr
+ * @param msg
+ */
 function assert (expr, msg) {
   if (!expr) {
     throw new Error(msg || 'Assertion Failed');
@@ -14,17 +19,21 @@ const mapExists = typeof Map === 'function';
 let supportArrows = false;
 let supportGenerators = false;
 try {
-  eval('function * foo () {}; foo'); // eslint-disable-line no-eval
+  eval('function * foo () {}; foo');  
   supportGenerators = true;
 } catch (error) {
   supportGenerators = false;
 }
 try {
-  eval('() => {}'); // eslint-disable-line no-eval
+  eval('() => {}');  
   supportArrows = true;
 } catch (error) {
   supportArrows = false;
 }
+/**
+ *
+ * @param condition
+ */
 function itIf(condition) {
   return condition ? it : it.skip;
 }
@@ -79,6 +88,9 @@ describe('ES2015 Specific', () => {
   });
 
   itIf(typeof Promise === 'function')('promise', () => {
+    /**
+     *
+     */
     function noop() {}
     assert(type(new Promise(noop)) === 'Promise');
   });
@@ -129,15 +141,15 @@ describe('ES2015 Specific', () => {
   });
 
   itIf(supportArrows)('arrow function', () => {
-    assert(type(eval('() => {}')) === 'Function'); // eslint-disable-line no-eval
+    assert(type(eval('() => {}')) === 'Function');  
   });
 
   itIf(supportGenerators)('generator function', () => {
-    assert(type(eval('function * foo () {}; foo')) === 'GeneratorFunction'); // eslint-disable-line no-eval
+    assert(type(eval('function * foo () {}; foo')) === 'GeneratorFunction');  
   });
 
   itIf(supportGenerators)('generator', () => {
-    assert(type(eval('(function * foo () {}())')) === 'Generator'); // eslint-disable-line no-eval
+    assert(type(eval('(function * foo () {}())')) === 'Generator');  
   });
 
 });

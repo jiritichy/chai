@@ -2,7 +2,7 @@ import * as chai from '../../index.js'
 
 const expect = chai.expect
 
-var deepObj = {
+let deepObj = {
     green: { tea: 'matcha' }
   , teas: [
         'chai'
@@ -11,7 +11,7 @@ var deepObj = {
     ]
 };
 
-var deepObj2 = {
+let deepObj2 = {
     green: { tea: 'matcha' }
   , teas: [
         'chai'

@@ -1,5 +1,10 @@
 import * as chai from '../../index.js';
 
+/**
+ *
+ * @param expr
+ * @param msg
+ */
 function assert (expr, msg) {
   if (!expr) {
     throw new Error(msg || 'Assertion Failed');
@@ -10,6 +15,10 @@ const type = chai.util.type
 
 const symbolExists = typeof Symbol === 'function';
 const symbolToStringTagExists = symbolExists && typeof Symbol.toStringTag !== 'undefined';
+/**
+ *
+ * @param condition
+ */
 function describeIf(condition) {
   return condition ? describe : describe.skip;
 }
